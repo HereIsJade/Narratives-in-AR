@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="1-american-dollar" size="1.000000 0.414000" />
+    <ImageTarget name="the-magician" size="1.000000 1.714286" />
+    <ImageTarget name="the-hanged-man" size="1.000000 1.714286" />
+    <ImageTarget name="the-fool" size="1.000000 1.714286" />
+    <ImageTarget name="strength" size="1.000000 1.714286" />
+    <ImageTarget name="queen-of-pentacles" size="1.000000 1.714286" />
+  </Tracking>
+</QCARConfig>
