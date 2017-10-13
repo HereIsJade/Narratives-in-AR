@@ -6,7 +6,7 @@ using Vuforia;
 public class voiceScript : MonoBehaviour,ITrackableEventHandler {
 	public AudioSource markerAudio;
 	public AudioClip clip;
-	public bool voiceOn = false;
+
 	private TrackableBehaviour markerTB;
 	// Use this for initialization
 	void Start () {
@@ -15,7 +15,8 @@ public class voiceScript : MonoBehaviour,ITrackableEventHandler {
 		if (markerTB) {
 			markerTB.RegisterTrackableEventHandler(this);
 		}
-
+		clip = Resources.Load ("sounds/0A") as AudioClip;
+		markerAudio.clip = clip;
 	}
 
 	public void OnTrackableStateChanged(
@@ -28,7 +29,7 @@ public class voiceScript : MonoBehaviour,ITrackableEventHandler {
 			newStatus == TrackableBehaviour.Status.TRACKED ||
 			newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
 		{
-			Debug.Log ("Detected marker name: "+markerTB.TrackableName);
+//			Debug.Log ("Detected marker name: "+markerTB.TrackableName);
 			if (markerTB.TrackableName == TrackableList.ghostMarker) {
 				
 				clip = Resources.Load ("sounds/" + TrackableList.voiceIndex + "A") as AudioClip;

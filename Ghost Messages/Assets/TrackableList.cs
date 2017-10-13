@@ -8,18 +8,19 @@ using System.Linq;
 public class TrackableList : MonoBehaviour {
 	
 	public static int voiceIndex = 0;
-	public static string ghostMarker="the-fool";
-
 
 	private int ghostMarkerIndex=0;
 	private string[] unvisitedMarkers = { "the-fool", "Priestess", "Hermit", "WheelFortune", "World" };
 
+	public static string ghostMarker="";
+
 	private void removeMarker(string marker){
 		if (unvisitedMarkers.Length == 5) {
-			voiceIndex = 0;
 			string markerToRemove = marker;
 			unvisitedMarkers = unvisitedMarkers.Where (val => val != markerToRemove).ToArray ();
-
+			//after removing, randomly select an unvisited marker as the ghost marker
+			ghostMarkerIndex = Random.Range (0, unvisitedMarkers.Length);
+			ghostMarker = unvisitedMarkers [ghostMarkerIndex];
 		} else {
 			string markerToRemove = marker;
 			unvisitedMarkers = unvisitedMarkers.Where (val => val != markerToRemove).ToArray ();
@@ -31,6 +32,7 @@ public class TrackableList : MonoBehaviour {
 	}
 
 	void Start(){
+		ghostMarker=unvisitedMarkers[Random.Range(0,5)];
 	}
 	// Update is called once per frame
 	void Update () {
