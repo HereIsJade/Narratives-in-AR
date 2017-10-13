@@ -2,18 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Vuforia;
+using System.Linq;
+
 
 public class TrackableList : MonoBehaviour {
-	public GameObject one;
-	public bool oneIsActive = false;
-//	public AudioSource bark;
-	public AudioSource markerAudio;
-	public AudioClip bark;
+	
+	public static int voiceIndex = 0;
+	public static string ghostMarker="the-fool";
 
+
+	private int ghostMarkerIndex=0;
+	private string[] unvisitedMarkers = { "the-fool", "Priestess", "Hermit", "WheelFortune", "World" };
+
+	private void removeMarker(string marker){
+		if (unvisitedMarkers.Length == 5) {
+			voiceIndex = 0;
+			string markerToRemove = marker;
+			unvisitedMarkers = unvisitedMarkers.Where (val => val != markerToRemove).ToArray ();
+
+		} else {
+			string markerToRemove = marker;
+			unvisitedMarkers = unvisitedMarkers.Where (val => val != markerToRemove).ToArray ();
+			//after removing, randomly select an unvisited marker as the ghost marker
+			ghostMarkerIndex = Random.Range (0, unvisitedMarkers.Length);
+			ghostMarker = unvisitedMarkers [ghostMarkerIndex];
+		}
+
+	}
 
 	void Start(){
-		bark= Resources.Load("Sounds/Barking", typeof(AudioClip)) as AudioClip;
-		markerAudio.GetComponent<AudioSource>();
 	}
 	// Update is called once per frame
 	void Update () {
@@ -28,15 +45,22 @@ public class TrackableList : MonoBehaviour {
 		// Iterate through the list of active trackables
 		foreach (TrackableBehaviour tb in activeTrackables) {
 //			Debug.Log("Trackable: " + tb.TrackableName);
-			if (tb.TrackableName == "1-american-dollar") {
-				oneIsActive = true;
-				markerAudio.PlayOneShot(bark);
-
-			} else {
-				oneIsActive = false;
+			if (tb.TrackableName == "the-fool" && ghostMarker=="the-fool") {
+				removeMarker ("the-fool");
+			}
+			if(tb.TrackableName == "Priestess" && ghostMarker=="Priestess") {
+				removeMarker ("Priestess");
+			}
+			if(tb.TrackableName == "Hermit" && ghostMarker=="Hermit") {
+				removeMarker ("Hermit");
+			}
+			if(tb.TrackableName == "WheelFortune" && ghostMarker=="WheelFortune") {
+				removeMarker ("WheelFortune");
+			}
+			if(tb.TrackableName == "World" && ghostMarker=="World") {
+				removeMarker ("World");
 			}
 		}
-
-		Debug.Log ("one dollar marker active = : " + oneIsActive);
+			
 	}
 }

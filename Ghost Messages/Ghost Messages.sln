@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ghost Messages", "Assembly-CSharp.csproj", "{68B6B479-2FCE-B73F-E063-0B248484D5A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ghost Messages", "Assembly-CSharp-Editor.csproj", "{ABE74D75-67BE-AFB6-4224-A166682BD9B5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68B6B479-2FCE-B73F-E063-0B248484D5A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68B6B479-2FCE-B73F-E063-0B248484D5A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68B6B479-2FCE-B73F-E063-0B248484D5A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68B6B479-2FCE-B73F-E063-0B248484D5A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABE74D75-67BE-AFB6-4224-A166682BD9B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABE74D75-67BE-AFB6-4224-A166682BD9B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABE74D75-67BE-AFB6-4224-A166682BD9B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABE74D75-67BE-AFB6-4224-A166682BD9B5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
