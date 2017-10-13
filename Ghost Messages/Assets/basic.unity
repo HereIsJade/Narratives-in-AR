@@ -175,7 +175,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   markerAudio: {fileID: 0}
   clip: {fileID: 0}
-  voiceOn: 0
 --- !u!1 &407787423 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 384a0d8cc71cef74a873b3353337ea2c, type: 2}
@@ -193,7 +192,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   markerAudio: {fileID: 0}
   clip: {fileID: 0}
-  voiceOn: 0
 --- !u!4 &602630113 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 384a0d8cc71cef74a873b3353337ea2c, type: 2}
@@ -213,17 +211,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca5347936cc2e4c9b9c4330587127d59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &607237632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 607237626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69b486be7ce9747cfadbcd742e692ec0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &724128924 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 384a0d8cc71cef74a873b3353337ea2c, type: 2}
@@ -241,7 +228,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   markerAudio: {fileID: 0}
   clip: {fileID: 0}
-  voiceOn: 0
 --- !u!1001 &796193084
 Prefab:
   m_ObjectHideFlags: 0
@@ -882,7 +868,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   markerAudio: {fileID: 0}
   clip: {fileID: 0}
-  voiceOn: 0
 --- !u!1 &1398982657
 GameObject:
   m_ObjectHideFlags: 0
@@ -965,7 +950,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   markerAudio: {fileID: 0}
   clip: {fileID: 0}
-  voiceOn: 0
 --- !u!21 &1550121590
 Material:
   serializedVersion: 6
