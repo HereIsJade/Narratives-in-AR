@@ -4,19 +4,19 @@ using UnityEngine;
 using Vuforia;
 
 public class voiceScript : MonoBehaviour,ITrackableEventHandler {
-	public AudioSource markerAudio;
+	//	public AudioSource markerAudio;
 	public AudioClip clip;
 
 	private TrackableBehaviour markerTB;
 	// Use this for initialization
 	void Start () {
-		
+
 		markerTB=GetComponent<TrackableBehaviour>();
 		if (markerTB) {
 			markerTB.RegisterTrackableEventHandler(this);
 		}
 		clip = Resources.Load ("sounds/0A") as AudioClip;
-		markerAudio.clip = clip;
+		TrackableList.markerAudio.clip = clip;
 	}
 
 	public void OnTrackableStateChanged(
@@ -29,14 +29,17 @@ public class voiceScript : MonoBehaviour,ITrackableEventHandler {
 			newStatus == TrackableBehaviour.Status.TRACKED ||
 			newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
 		{
-//			Debug.Log ("Detected marker name: "+markerTB.TrackableName);
+			//			Debug.Log ("Detected marker name: "+markerTB.TrackableName);
 			if (markerTB.TrackableName == TrackableList.ghostMarker) {
-				
+				if (TrackableList.markerAudio != null) {
+					TrackableList.markerAudio.Stop ();
+				}
+
 				clip = Resources.Load ("sounds/" + TrackableList.voiceIndex + "A") as AudioClip;
 				Debug.Log ("tracked and hasGHost voiceIndex in if : " + TrackableList.voiceIndex);
-				markerAudio = gameObject.AddComponent < AudioSource > ();
-				markerAudio.clip = clip;
-				markerAudio.Play ();
+				TrackableList.markerAudio = gameObject.AddComponent < AudioSource > ();
+				TrackableList.markerAudio.clip = clip;
+				TrackableList.markerAudio.Play ();
 
 				if (TrackableList.voiceIndex < 5) {			
 					TrackableList.voiceIndex++;
@@ -48,7 +51,9 @@ public class voiceScript : MonoBehaviour,ITrackableEventHandler {
 		else
 		{
 			// Stop audio when target is lost
-			markerAudio.Stop ();
+			//			if (markerAudio != null) {
+			//				markerAudio.Stop ();
+			//			}
 		}
 	}   
 }

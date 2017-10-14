@@ -6,8 +6,9 @@ using System.Linq;
 
 
 public class TrackableList : MonoBehaviour {
-	
+
 	public static int voiceIndex = 0;
+	public static AudioSource markerAudio;
 
 	private int ghostMarkerIndex=0;
 	private string[] unvisitedMarkers = { "the-fool", "Priestess", "Hermit", "WheelFortune", "World" };
@@ -46,7 +47,7 @@ public class TrackableList : MonoBehaviour {
 
 		// Iterate through the list of active trackables
 		foreach (TrackableBehaviour tb in activeTrackables) {
-//			Debug.Log("Trackable: " + tb.TrackableName);
+			//			Debug.Log("Trackable: " + tb.TrackableName);
 			if (tb.TrackableName == "the-fool" && ghostMarker=="the-fool") {
 				removeMarker ("the-fool");
 			}
@@ -63,6 +64,6 @@ public class TrackableList : MonoBehaviour {
 				removeMarker ("World");
 			}
 		}
-			
+
 	}
 }
