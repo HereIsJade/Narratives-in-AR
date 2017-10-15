@@ -26,8 +26,12 @@ public class TrackableList : MonoBehaviour {
 			string markerToRemove = marker;
 			unvisitedMarkers = unvisitedMarkers.Where (val => val != markerToRemove).ToArray ();
 			//after removing, randomly select an unvisited marker as the ghost marker
-			ghostMarkerIndex = Random.Range (0, unvisitedMarkers.Length);
-			ghostMarker = unvisitedMarkers [ghostMarkerIndex];
+			if (unvisitedMarkers.Length != 0) {
+				ghostMarkerIndex = Random.Range (0, unvisitedMarkers.Length);
+				ghostMarker = unvisitedMarkers [ghostMarkerIndex];
+			} else {
+
+			}
 		}
 
 	}

@@ -7,6 +7,7 @@ public class voiceScript : MonoBehaviour,ITrackableEventHandler {
 	//	public AudioSource markerAudio;
 	public AudioClip clip;
 	private ParticleSystem fogPs;
+	private SpriteRenderer ghostMask;
 
 	private TrackableBehaviour markerTB;
 	// Use this for initialization
@@ -14,6 +15,7 @@ public class voiceScript : MonoBehaviour,ITrackableEventHandler {
 
 		//remember!!!!!!!!!!gameObject.name+"fogParticle" //otherwise it's finding any gameobj with the name fogparticle
 		fogPs = GameObject.Find (gameObject.name+"fogParticle").GetComponent<ParticleSystem> ();
+		ghostMask=GameObject.Find (gameObject.name+"ghost mask").GetComponent<SpriteRenderer> ();
 
 		markerTB=GetComponent<TrackableBehaviour>();
 		if (markerTB) {
@@ -53,6 +55,8 @@ public class voiceScript : MonoBehaviour,ITrackableEventHandler {
 					TrackableList.markerAudio.Stop ();
 				}
 
+				ghostMask.enabled = true;
+
 				clip = Resources.Load ("sounds/" + TrackableList.voiceIndex + "A") as AudioClip;
 				TrackableList.markerAudio = gameObject.AddComponent < AudioSource > ();
 				TrackableList.markerAudio.clip = clip;
@@ -66,6 +70,7 @@ public class voiceScript : MonoBehaviour,ITrackableEventHandler {
 			} else {
 				//incorrect marker detected, trigger fog particle system
 				PlayFog();
+				ghostMask.enabled = false;
 
 			}
 
