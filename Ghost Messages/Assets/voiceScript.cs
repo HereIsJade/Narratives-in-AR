@@ -6,10 +6,14 @@ using Vuforia;
 public class voiceScript : MonoBehaviour,ITrackableEventHandler {
 	//	public AudioSource markerAudio;
 	public AudioClip clip;
+	private ParticleSystem fogPs;
 
 	private TrackableBehaviour markerTB;
 	// Use this for initialization
 	void Start () {
+
+		//remember!!!!!!!!!!gameObject.name+"fogParticle" //otherwise it's finding any gameobj with the name fogparticle
+		fogPs = GameObject.Find (gameObject.name+"fogParticle").GetComponent<ParticleSystem> ();
 
 		markerTB=GetComponent<TrackableBehaviour>();
 		if (markerTB) {
@@ -18,25 +22,38 @@ public class voiceScript : MonoBehaviour,ITrackableEventHandler {
 		clip = Resources.Load ("sounds/0A") as AudioClip;
 		TrackableList.markerAudio.clip = clip;
 	}
+	private void PlayFog()
+	{
+		
+		var em=fogPs.emission;
+		em.enabled = true;
+		fogPs.Play();
+	}
+	void StopFog()
+	{
+		var em=fogPs.emission;
+		em.enabled = false;
+		fogPs.Stop();
+	}
 
 	public void OnTrackableStateChanged(
 		TrackableBehaviour.Status previousStatus,
 		TrackableBehaviour.Status newStatus)
 	{
-		Debug.Log ("voiceindex: "+TrackableList.voiceIndex);
-		Debug.Log ("ghostmarker: " + TrackableList.ghostMarker);
+		
 		if (newStatus == TrackableBehaviour.Status.DETECTED ||
 			newStatus == TrackableBehaviour.Status.TRACKED ||
 			newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
 		{
-			//			Debug.Log ("Detected marker name: "+markerTB.TrackableName);
+			StopFog ();
+			
+			//correct marker found, trigger voice, ghost mask
 			if (markerTB.TrackableName == TrackableList.ghostMarker) {
 				if (TrackableList.markerAudio != null) {
 					TrackableList.markerAudio.Stop ();
 				}
 
 				clip = Resources.Load ("sounds/" + TrackableList.voiceIndex + "A") as AudioClip;
-				Debug.Log ("tracked and hasGHost voiceIndex in if : " + TrackableList.voiceIndex);
 				TrackableList.markerAudio = gameObject.AddComponent < AudioSource > ();
 				TrackableList.markerAudio.clip = clip;
 				TrackableList.markerAudio.Play ();
@@ -46,7 +63,14 @@ public class voiceScript : MonoBehaviour,ITrackableEventHandler {
 				} else {
 					TrackableList.voiceIndex = 0;
 				}
+			} else {
+				//incorrect marker detected, trigger fog particle system
+				PlayFog();
+
 			}
+
+
+
 		}
 		else
 		{
@@ -55,5 +79,8 @@ public class voiceScript : MonoBehaviour,ITrackableEventHandler {
 			//				markerAudio.Stop ();
 			//			}
 		}
+
+		Debug.Log ("ghostmarker: " + TrackableList.ghostMarker);
+		Debug.Log (markerTB.TrackableName+" Fog: " + fogPs+ "isPlaying"+fogPs.isPlaying);
 	}   
 }
