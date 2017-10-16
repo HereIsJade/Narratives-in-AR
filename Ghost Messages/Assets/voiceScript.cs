@@ -21,8 +21,8 @@ public class voiceScript : MonoBehaviour,ITrackableEventHandler {
 		if (markerTB) {
 			markerTB.RegisterTrackableEventHandler(this);
 		}
-		clip = Resources.Load ("sounds/0A") as AudioClip;
-		TrackableList.markerAudio.clip = clip;
+//		clip = Resources.Load ("sounds/0A") as AudioClip;
+//		TrackableList.markerAudio.clip = clip;
 	}
 	private void PlayFog()
 	{
