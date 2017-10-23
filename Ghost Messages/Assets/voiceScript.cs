@@ -50,7 +50,8 @@ public class voiceScript : MonoBehaviour,ITrackableEventHandler {
 			StopFog ();
 			
 			//correct marker found, trigger voice, ghost mask
-			if (markerTB.TrackableName == TrackableList.ghostMarker) {
+
+			if (markerTB.TrackableName == TrackableList.ghostMarker || TrackableList.ghostMarker=="") {
 				if (TrackableList.markerAudio != null) {
 					TrackableList.markerAudio.Stop ();
 				}
@@ -67,7 +68,8 @@ public class voiceScript : MonoBehaviour,ITrackableEventHandler {
 				} else {
 					TrackableList.voiceIndex = 0;
 				}
-			} else {
+			} 
+			else {
 				//incorrect marker detected, trigger fog particle system
 				PlayFog();
 				ghostMask.enabled = false;
