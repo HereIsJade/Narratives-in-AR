@@ -53,6 +53,8 @@
   <ItemGroup>
      <Compile Include="Assets\lookAtCam.cs" />
      <Compile Include="Assets\markerScript.cs" />
+     <Compile Include="Assets\TextScroll.cs" />
+     <Compile Include="Assets\TouchScript.cs" />
      <Compile Include="Assets\TrackableList.cs" />
      <Compile Include="Assets\voiceScript.cs" />
      <Compile Include="Assets\Vuforia\Scripts\BackgroundPlaneBehaviour.cs" />
