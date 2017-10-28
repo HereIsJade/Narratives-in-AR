@@ -53,15 +53,12 @@ public class TrackableList : MonoBehaviour {
 
 		// Iterate through the list of active trackables
 		foreach (TrackableBehaviour tb in activeTrackables) {
-			Debug.Log ("firstActiveMarker=" + firstActiveMarker);
 			if (firstActiveMarker == false) {
 				
 				ghostMarker = tb.TrackableName;
-				Debug.Log ("**********ghostMarker=" + ghostMarker);
 				firstActiveMarker = true;
 				removeMarker (ghostMarker);
 			} else {
-				//			Debug.Log("Trackable: " + tb.TrackableName);
 				if (tb.TrackableName == "the-fool" && ghostMarker == "the-fool") {
 					removeMarker ("the-fool");
 				}
