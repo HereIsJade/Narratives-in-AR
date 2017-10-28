@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Vuforia;
+using UnityEngine.UI;
 using System.Linq;
 
 
@@ -15,6 +16,8 @@ public class TrackableList : MonoBehaviour {
 	private string[] unvisitedMarkers = { "the-fool", "Priestess", "Hermit", "WheelFortune", "World" };
 
 	public static string ghostMarker="";
+
+	public Canvas endingCanvas;
 
 	private void removeMarker(string marker){
 		if (unvisitedMarkers.Length == 5) {
@@ -39,10 +42,15 @@ public class TrackableList : MonoBehaviour {
 	}
 
 	void Start(){
-//		ghostMarker=unvisitedMarkers[Random.Range(0,5)];
+		endingCanvas = GameObject.Find("endingCanvas").GetComponent<Canvas>();
+		endingCanvas.enabled = false;
 	}
 	// Update is called once per frame
 	void Update () {
+
+		if (unvisitedMarkers.Length <= 0) {
+			endingCanvas.enabled = true;
+		}
 		// Get the Vuforia StateManager
 		StateManager sm = TrackerManager.Instance.GetStateManager ();
 

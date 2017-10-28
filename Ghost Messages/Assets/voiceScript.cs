@@ -4,8 +4,10 @@ using UnityEngine;
 using Vuforia;
 
 public class voiceScript : MonoBehaviour,ITrackableEventHandler {
-	//	public AudioSource markerAudio;
+
 	public AudioClip clip;
+	private float duration;
+
 	private ParticleSystem fogPs;
 	private ParticleSystem snowPs;
 	private SpriteRenderer ghostMask;
@@ -23,8 +25,6 @@ public class voiceScript : MonoBehaviour,ITrackableEventHandler {
 		if (markerTB) {
 			markerTB.RegisterTrackableEventHandler(this);
 		}
-//		clip = Resources.Load ("sounds/0A") as AudioClip;
-//		TrackableList.markerAudio.clip = clip;
 	}
 	private void PlayFog()
 	{
@@ -40,6 +40,17 @@ public class voiceScript : MonoBehaviour,ITrackableEventHandler {
 		fogPs.Stop();
 	}
 
+	IEnumerator WaitForSound()
+	{
+		yield return new WaitForSeconds(duration);
+		ghostMask.enabled = false;
+		print("Finish voice audio");
+		clip = Resources.Load ("sounds/completion chime") as AudioClip;
+		TrackableList.markerAudio = gameObject.AddComponent < AudioSource > ();
+		TrackableList.markerAudio.clip = clip;
+		TrackableList.markerAudio.Play ();
+	}
+
 	public void OnTrackableStateChanged(
 		TrackableBehaviour.Status previousStatus,
 		TrackableBehaviour.Status newStatus)
@@ -49,11 +60,6 @@ public class voiceScript : MonoBehaviour,ITrackableEventHandler {
 			newStatus == TrackableBehaviour.Status.TRACKED ||
 			newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
 		{
-//			StopFog ();
-			var emSnow = snowPs.emission;
-			emSnow.enabled = false;
-			snowPs.Stop ();
-			
 			//correct marker found, trigger voice, ghost mask
 
 			if (markerTB.TrackableName == TrackableList.ghostMarker || TrackableList.ghostMarker=="") {
@@ -62,23 +68,27 @@ public class voiceScript : MonoBehaviour,ITrackableEventHandler {
 				}
 				StopFog ();
 				ghostMask.enabled = true;
+				var emSnow = snowPs.emission;
 
 				clip = Resources.Load ("sounds/" + TrackableList.voiceIndex + "A") as AudioClip;
 				TrackableList.markerAudio = gameObject.AddComponent < AudioSource > ();
 				TrackableList.markerAudio.clip = clip;
 				TrackableList.markerAudio.Play ();
+				duration = clip.length;
+
+				StartCoroutine(WaitForSound());
+
+
 
 				if (TrackableList.voiceIndex >= 3) {			
 					
 					emSnow.enabled = true;
 					snowPs.Play ();
-				} else {
+				} else{
 					Debug.Log ("TrackableList.voiceIndex=" + TrackableList.voiceIndex);
 
 					emSnow.enabled = false;
 					snowPs.Stop ();
-					//should be false
-					Debug.Log (markerTB.TrackableName+" Snow: " + snowPs+ "isPlaying"+snowPs.isPlaying);
 				}
 
 				if (TrackableList.voiceIndex < 5) {			
@@ -93,18 +103,13 @@ public class voiceScript : MonoBehaviour,ITrackableEventHandler {
 				//incorrect marker detected, trigger fog particle system
 				PlayFog();
 				ghostMask.enabled = false;
-
-
-				Debug.Log (markerTB.TrackableName+" Fog: " + fogPs+ "isPlaying"+fogPs.isPlaying);
-//				Debug.Log (markerTB.TrackableName+" Snow: " + fogPs+ "isPlaying"+snowPs.isPlaying);
-
 			}
-
 
 
 		}
 		else
 		{
+
 			// Stop audio when target is lost
 			//			if (markerAudio != null) {
 			//				markerAudio.Stop ();
